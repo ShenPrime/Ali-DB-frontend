@@ -16,31 +16,12 @@ searchInput.addEventListener("input", (e) => {
 
 document.addEventListener("keyup", async (e) => {
   if (e.key === "Enter") {
-    const parsedValue = modifySearchStringWithAndSigns(value);
     checkedColumnVal = getSearchOptionValue();
     clearResults(entries);
-    const data = await fetchData(parsedValue, checkedColumnVal);
+    const data = await fetchData(value, checkedColumnVal);
     parseDataArrayAndDisplayResults(data);
   }
 });
-
-function modifySearchStringWithAndSigns(value) {
-  if (value === "" || !value) {
-    return;
-  }
-  let result = "";
-  let temp = value.trim().split(" ");
-  for (let i = 0; i < temp.length; i++) {
-    if (i === 0 && temp.length > 1) {
-      result += temp[i] + " & ";
-    } else if (i === temp.length - 1) {
-      result += temp[i];
-    } else {
-      result += temp[i] + " & ";
-    }
-  }
-  return result;
-}
 
 async function fetchData(value, searchOption) {
   if (!value || value === "") {
@@ -129,11 +110,9 @@ ${content.pic}
 }
 
 function copy(id) {
-  const copyButton = document.getElementById("copy");
   const text = document.getElementById(id);
   console.log(text.innerText);
   navigator.clipboard.writeText(text.innerText);
-
 }
 
 function createTemplate(html) {
