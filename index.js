@@ -6,6 +6,7 @@ const arabicT = document.getElementById("arabic-t");
 const swedishA = document.getElementById("swedish-a");
 const arabicA = document.getElementById("arabic-a");
 const note = document.getElementById("note");
+const totalDataSpan = document.getElementById("totalData");
 
 let value;
 let checkedColumnVal;
@@ -30,11 +31,13 @@ async function fetchData(value, searchOption) {
 
   try {
     const response = await fetch(
-      `https://nodejs-production-ddec.up.railway.app/${searchOption}/${value}`
+      `https://nodejs-production-ddec.up.railway.app/${searchOption}/${value}`,
     );
     if (response.status === 200) {
       const data = await response.json();
-      entries.innerText = `Found ${data.length} entries in DB`;
+      const totalData = data.totalData[0].count;
+      entries.innerText = `Found ${data.data.length} entries in DB`;
+      totalDataSpan.innerText = totalData;
       return data;
     } else {
       entries.innerText = `No Results Found!`;
@@ -47,12 +50,12 @@ async function fetchData(value, searchOption) {
 }
 
 function parseDataArrayAndDisplayResults(data) {
-  let counter = 0
-  data.forEach((dataJsonItem) => {
+  let counter = 0;
+  data["data"].forEach((dataJsonItem) => {
     const content = validateJSON(dataJsonItem);
     const card = createItemCard(content, counter);
     searchResults.appendChild(card);
-    counter++
+    counter++;
   });
 }
 
@@ -65,7 +68,8 @@ function validateJSON(content) {
   if (content) {
     const swedishQuestion = content.swedish_question ?? "NULL";
     const arabicTranslate = content.arabic_translate ?? "NULL";
-    const swedishAnswer = content.swedish_answer ?? "NULL"; const arabicAnswer = content.arabic_answer ?? "NULL";
+    const swedishAnswer = content.swedish_answer ?? "NULL";
+    const arabicAnswer = content.arabic_answer ?? "NULL";
     const note = content.note ?? "NULL";
     const pic = content.pic ? `<img src="./Pic/${content.pic}"` : "";
 
@@ -81,10 +85,9 @@ function validateJSON(content) {
   return null;
 }
 
-
 function generateCardHTML(content, counter) {
   if (!content) {
-    return `<h4>Nothing found</h4>`
+    return `<h4>Nothing found</h4>`;
   }
   return `
 <div class="cards-container">

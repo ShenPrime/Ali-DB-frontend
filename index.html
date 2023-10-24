@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <title>Ali DB</title>
@@ -8,6 +8,10 @@
   </head>
   <body>
     <h1 id="title">SYCOBRA DB</h1>
+    <h3>
+      Total Data:
+      <span id="totalData"> </span>
+    </h3>
     <div class="search-wrapper">
       <label for="search">Search</label>
       <input type="search" id="search" />
@@ -33,7 +37,7 @@
           name="search-column"
           value="swedish_answer"
         />
-         <label for="html">Swedish Answer</label><br />
+        <label for="html">Swedish Answer</label><br />
         <input
           type="radio"
           id="arabic-a"
@@ -42,7 +46,7 @@
         />
         <label for="html">Arabic Answer</label><br />
         <input type="radio" id="note" name="search-column" value="note" />
-         <label for="html">Note</label><br />
+        <label for="html">Note</label><br />
       </div>
     </div>
     <h5 id="entries"></h5>
