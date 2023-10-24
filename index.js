@@ -20,7 +20,7 @@ document.addEventListener("keyup", async (e) => {
     checkedColumnVal = getSearchOptionValue();
     clearResults(entries);
     const data = await fetchData(value, checkedColumnVal);
-    parseDataArrayAndDisplayResults(data);
+    parseDataArrayAndDisplayResults(data.data);
   }
 });
 
@@ -51,7 +51,7 @@ async function fetchData(value, searchOption) {
 
 function parseDataArrayAndDisplayResults(data) {
   let counter = 0
-  data.data.forEach((dataJsonItem) => {
+  data.forEach((dataJsonItem) => {
     const content = validateJSON(dataJsonItem);
     const card = createItemCard(content, counter);
     searchResults.appendChild(card);
