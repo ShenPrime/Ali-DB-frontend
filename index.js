@@ -51,12 +51,19 @@ async function fetchData(value, searchOption) {
 
 function parseDataArrayAndDisplayResults(data) {
   let counter = 0
-  data.forEach((dataJsonItem) => {
-    const content = validateJSON(dataJsonItem);
+  console.log(data);
+  // data.forEach((dataJsonItem) => {
+  //   const content = validateJSON(dataJsonItem);
+  //   const card = createItemCard(content, counter);
+  //   searchResults.appendChild(card);
+  //   counter++
+  // });
+  for (let i = 0; i < data.length; i++) {
+    const content = validateJSON(data[i]);
     const card = createItemCard(content, counter);
     searchResults.appendChild(card);
-    counter++
-  });
+    counter++;
+  }
 }
 
 function createItemCard(jsonInfo, counter) {
